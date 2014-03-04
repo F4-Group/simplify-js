@@ -1,5 +1,5 @@
 {
-  "name": "simplify-js",
+  "name": "simplify-geojson-js",
   "version": "1.2.0",
   "description": "A high-performance JavaScript 2D/3D polyline simplification library",
   "homepage": "http://mourner.github.com/simplify-js/",
