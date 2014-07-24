@@ -9,6 +9,10 @@
 // to suit your point format, run search/replace for '.x' and '.y';
 // for 3D version, see 3d branch (configurability would draw significant performance overhead)
 
+function clonePoint(p) {
+    return {x: p.x, y: p.y};
+}
+
 // square distance between 2 points
 function getSqDist(p1, p2) {
 
@@ -68,6 +72,27 @@ function simplifyRadialDist(points, sqTolerance) {
     return newPoints;
 }
 
+// basic aligned-points simplification
+function simplifyAligned(points, sqTolerance) {
+
+    if (points.length <= 3 || getSqDist(points[0], points[points.length - 1]) > 0) {
+        //not a polygon
+        return points;
+    }
+
+    var point = points[0],
+        pointIndex = 1,
+        lastPointIndex = points.length - 2,
+        lastPoint = points[lastPointIndex];
+    while ((pointIndex + 1) < lastPointIndex && getSqSegDist(point, points[pointIndex + 1], lastPoint) <= sqTolerance) {
+        pointIndex++;
+        point = points[pointIndex];
+    }
+    points = points.slice(pointIndex, -1);
+    points.push(clonePoint(points[0]));
+    return points;
+}
+
 // simplification using optimized Douglas-Peucker algorithm with recursion elimination
 function simplifyDouglasPeucker(points, sqTolerance) {
 
@@ -119,6 +144,7 @@ function simplify(points, tolerance, highestQuality) {
     var sqTolerance = tolerance !== undefined ? tolerance * tolerance : 1;
 
     points = highestQuality ? points : simplifyRadialDist(points, sqTolerance);
+    points = highestQuality ? points : simplifyAligned(points, sqTolerance);
     points = simplifyDouglasPeucker(points, sqTolerance);
 
     return points;
