@@ -46,6 +46,14 @@ var polygonStartPointAlignedSimplified = [
     {x:100,y:0},{x:100,y:50},{x:0,y:50},{x:0,y:0},{x:100,y:0}
 ];
 
+var polygonSquarePoints = [
+    {x:0,y:0},{x:100,y:0},{x:100,y:100},{x:0,y:100},{x:0,y:0}
+];
+
+var polygonSquareSimplified = [
+    {x:0,y:0},{x:100,y:0},{x:100,y:100},{x:0,y:100},{x:0,y:0}
+];
+
 var simplify = require('./simplify'),
     t = require('tape');
 
@@ -70,5 +78,11 @@ t('just return the points if it has no points', function(t){
 t('simplify start point of a polygon when aligned', function(t){
     var result = simplify(polygonStartPointAlignedPoints);
     t.same(result, polygonStartPointAlignedSimplified);
+    t.end();
+});
+
+t('square polygon not simplified', function(t){
+    var result = simplify(polygonSquarePoints);
+    t.same(result, polygonSquareSimplified);
     t.end();
 });

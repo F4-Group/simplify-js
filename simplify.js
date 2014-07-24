@@ -80,8 +80,8 @@ function simplifyAligned(points, sqTolerance) {
         return points;
     }
 
-    var point = points[0],
-        pointIndex = 1,
+    var pointIndex = 0,
+        point = points[pointIndex],
         lastPointIndex = points.length - 2,
         lastPoint = points[lastPointIndex];
     while ((pointIndex + 1) < lastPointIndex && getSqSegDist(point, points[pointIndex + 1], lastPoint) <= sqTolerance) {
