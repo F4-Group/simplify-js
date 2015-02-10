@@ -11,7 +11,7 @@
 
 function clonePoint(p) {
     if (p.clone)
-        p.clone();
+        return p.clone();
     return {x: p.x, y: p.y};
 }
 
