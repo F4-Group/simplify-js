@@ -10,6 +10,8 @@
 // for 3D version, see 3d branch (configurability would draw significant performance overhead)
 
 function clonePoint(p) {
+    if (p.clone)
+        p.clone();
     return {x: p.x, y: p.y};
 }
 
